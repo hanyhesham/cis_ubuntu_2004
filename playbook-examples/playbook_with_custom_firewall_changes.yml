@@ -8,6 +8,7 @@
     - cis_ubuntu_2004
   vars:
     ansible_python_interpreter: /usr/bin/python3
+    ubuntu_2004_cis_time_synchronization: ntp
 
     # To set ipv6 as required .... To use ufw is as the firewall
     ubuntu_2004_cis_firewall: ufw
