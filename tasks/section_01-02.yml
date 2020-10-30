@@ -1,0 +1,37 @@
+---
+- name: 1.1.10 Ensure separate partition exists for /var partition
+  shell: mount | grep -E '\/var\s'
+
+- name: 1.1.11 Ensure separate partition exists for /var/tmp partition
+  shell: mount | grep -E '\/var/tmp\s'
+  register: tmp_result
+
+- name: 1.1.12 Ensure nodev option set on /var/tmp partition
+  fail:
+    msg: "nodev is not set for tmp"
+  when: "'nodev' not in tmp_result.stdout"
+
+- name: 1.1.13 Ensure nosuid option set on /var/tmp partition
+  fail:
+    msg: "nosuid is not set for tmp"
+  when: "'nosuid' not in tmp_result.stdout"
+
+- name: 1.1.14 Ensure noexec option set on /var/tmp partition
+  fail:
+    msg: "noexec is not set for tmp"
+  when: "'noexec' not in tmp_result.stdout"
+
+- name: 1.1.15 Ensure separate partition exists for /var/log
+  shell: mount | grep -E '\s/var/log\s'
+
+- name: 1.1.16 Ensure separate partition exists for /var/log/audit
+  shell: mount | grep -E '\s/var/log/audit\s'
+
+- name: 1.1.17 Ensure separate partition exists for /home
+  shell: mount | grep -E '\s/home\s'
+  register: home_result
+
+- name: 1.1.18 Ensure nodev option set on /home partition
+  fail:
+    msg: "nodev is not set for home"
+  when: "'nodev' not in home_result.stdout"
